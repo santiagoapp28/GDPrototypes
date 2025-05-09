@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da28725f2a0b32948a14201babdd56f1, type: 3}
+  m_Name: CardModifier 4
+  m_EditorClassIdentifier: 
+  cardName: 
+  icon: {fileID: 21300000, guid: 6b13369b6b7201a4eb1bedbf324eceb5, type: 3}
+  description: 
+  color: {r: 0.6784314, g: 0.2784314, b: 0.4039216, a: 1}
+  segmentPrefab: {fileID: 387115391389648802, guid: 8385036b8a18eb445a32a25ce49e7c49, type: 3}
