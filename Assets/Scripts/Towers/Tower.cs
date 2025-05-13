@@ -14,6 +14,8 @@ public class Tower : MonoBehaviour
     public float fireRate = 1f; // bullets per second (e.g. 1 shot per second)
     private float fireCooldown = 0f;
 
+    public bool canShoot = false;
+
     private void Update()
     {
         fireCooldown -= Time.deltaTime;
@@ -25,8 +27,31 @@ public class Tower : MonoBehaviour
         }
     }
 
+    public void AddSegment(TowerSegment segment)
+    {
+        segments.Add(segment);
+        segment.transform.parent = transform;
+
+
+        //PLACEHOLDER
+        if(segment.type == 0)
+        {
+            canShoot = true;
+        }
+        else if (segment.type == 1)
+        {
+            bulletDamage *= 2;
+        }
+        else if (segment.type == 2)
+        {
+            fireRate *= 2;
+        }
+    }
+
     public void Shoot()
     {
+        if (!canShoot) return;
+
         Collider[] hits = Physics.OverlapSphere(transform.position, detectionRadius, enemyLayer);
         Transform nearest = null;
         float minDist = Mathf.Infinity;

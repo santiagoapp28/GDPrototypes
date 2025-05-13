@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DeckManager : MonoBehaviour
@@ -6,7 +7,7 @@ public class DeckManager : MonoBehaviour
     public static DeckManager Instance { get; private set; }
 
     [Header("Deck Setup")]
-    public List<Card> allPossibleCards;  // assign in Inspector
+    public Deck initialDeck;
     public int startingHandSize = 5;
 
     [Header("UI Setup")]
@@ -14,8 +15,8 @@ public class DeckManager : MonoBehaviour
     public Transform deckCornerPanel;
     public GameObject cardUIPrefab;
 
-    private Queue<Card> deck = new Queue<Card>();
-    private List<GameObject> handCards = new List<GameObject>();
+    public List<Card> deck = new List<Card>();
+    private List<Card> hand = new List<Card>();
 
     private void Awake()
     {
@@ -35,11 +36,8 @@ public class DeckManager : MonoBehaviour
 
     void InitializeDeck()
     {
-        List<Card> temp = new List<Card>(allPossibleCards);
-        Shuffle(temp);
-
-        foreach (var card in temp)
-            deck.Enqueue(card);
+        deck = new List<Card>(initialDeck.cards);
+        Shuffle(deck);
     }
 
     void Shuffle(List<Card> list)
@@ -61,10 +59,12 @@ public class DeckManager : MonoBehaviour
     {
         if (deck.Count == 0) return;
 
-        Card cardData = deck.Dequeue();
-        GameObject cardUI = Instantiate(cardUIPrefab, handPanel);
-        cardUI.GetComponent<CardUI>().Initialize(cardData);
-        handCards.Add(cardUI);
+        Card cardData = deck.Last();
+        deck.Remove(deck.Last());
+        Debug.Log(cardData.cardName);
+        CardUI cardUI = Instantiate(cardUIPrefab, handPanel).GetComponent<CardUI>();
+        cardUI.Initialize(cardData);
+        hand.Add(cardData);
         FindAnyObjectByType<HandLayout>()?.RepositionCards();
 
         // Optionally update deckCorner UI too

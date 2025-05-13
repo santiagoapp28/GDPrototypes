@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da28725f2a0b32948a14201babdd56f1, type: 3}
-  m_Name: CardModifier
+  m_Name: Modifier_FireRate
   m_EditorClassIdentifier: 
-  cardName: 
-  icon: {fileID: 21300000, guid: 31b8f10e35bb852439afc4813122b77c, type: 3}
-  description: 
-  color: {r: 0.24313727, g: 0.4784314, b: 0.5529412, a: 1}
-  segmentPrefab: {fileID: 387115391389648802, guid: 7f886764b62c52843bcc589b3da6bca8, type: 3}
+  cardName: Accelerator
+  icon: {fileID: 21300000, guid: 4d12000649c870b45abb60bd08da386b, type: 3}
+  description: x2 Fire Rate
+  color: {r: 0.76470596, g: 0.6, b: 0.5058824, a: 1}
+  segmentPrefab: {fileID: 387115391389648802, guid: b1f750b855ec073479991f438c57833e, type: 3}

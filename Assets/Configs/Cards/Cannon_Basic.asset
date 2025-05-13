@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da28725f2a0b32948a14201babdd56f1, type: 3}
-  m_Name: CardModifier 1
+  m_Name: Cannon_Basic
   m_EditorClassIdentifier: 
-  cardName: 
-  icon: {fileID: 21300000, guid: c671e001599cda64ab190806e6b4628b, type: 3}
-  description: 
-  color: {r: 0.7607844, g: 0.6, b: 0.5019608, a: 1}
-  segmentPrefab: {fileID: 387115391389648802, guid: b1f750b855ec073479991f438c57833e, type: 3}
+  cardName: Simple Cannon
+  icon: {fileID: 21300000, guid: b35d05a0254e0474181c1b64ca175b75, type: 3}
+  description: Basic Bullet
+  color: {r: 0.6784314, g: 0.2784314, b: 0.4039216, a: 1}
+  segmentPrefab: {fileID: 387115391389648802, guid: 8385036b8a18eb445a32a25ce49e7c49, type: 3}

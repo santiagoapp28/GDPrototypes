@@ -189,13 +189,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 4162412394361708164}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a2d16e5444dc2746b1e913de9a3b874, type: 3}
+  m_Script: {fileID: 11500000, guid: 7693e144ebbeb0e4395ef033fa978e04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 7222957943592602904}
   nameText: {fileID: 9007520429398200449}
   descriptionText: {fileID: 499498796964849424}
   background: {fileID: 3734862546813682440}
+  segmentPrefab: {fileID: 387115391389648802, guid: 8385036b8a18eb445a32a25ce49e7c49, type: 3}
 --- !u!114 &3238260073946170175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,8 +224,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cc3c6f5c73bba048b8e606132111430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerSegmentPrefab: {fileID: 387115391389648802, guid: 8385036b8a18eb445a32a25ce49e7c49, type: 3}
-  ghostPreviewPrefab: {fileID: 387115391389648802, guid: f9fb72f068eb5ad47bd53f1afb34f2c8, type: 3}
 --- !u!225 &8294218591466172861
 CanvasGroup:
   m_ObjectHideFlags: 0

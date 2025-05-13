@@ -48,7 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7ebb56f6c23ce641971d06add88e9b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentTower: {fileID: 0}
   gridPosition: {x: 0, y: 0}
+  type: 1
 --- !u!33 &2546613640059371651
 MeshFilter:
   m_ObjectHideFlags: 0
