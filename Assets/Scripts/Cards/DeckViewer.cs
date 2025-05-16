@@ -11,6 +11,19 @@ public class DeckViewer : MonoBehaviour
         deckViewerPanel.SetActive(false); // start hidden
     }
 
+    public void OpenDeckView(Deck viewedDeck)
+    {
+        ClearDeckDisplay();
+
+        foreach (Card card in viewedDeck.cards)
+        {
+            GameObject cardObj = Instantiate(cardPrefab, contentParent);
+            cardObj.GetComponent<CardUI>().Initialize(card);
+        }
+
+        deckViewerPanel.SetActive(true);
+    }
+
     public void OpenDeckView()
     {
         ClearDeckDisplay();

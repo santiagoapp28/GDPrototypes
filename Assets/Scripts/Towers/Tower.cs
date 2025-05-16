@@ -80,13 +80,31 @@ public class Tower : MonoBehaviour
                 nearest = hit.transform;
             }
         }
+            
 
         if (nearest != null)
         {
-            Vector3 dir = (nearest.position - cannon.position).normalized;
-            Quaternion rot = Quaternion.LookRotation(dir);
+            Enemy enemy = nearest.GetComponentInParent<Enemy>();
+            if (enemy == null) return;
+
+            Vector3 targetPos = enemy.transform.position;
+            Vector3 enemyForward = enemy.transform.forward;
+            float enemySpeed = enemy.speed * (1f - enemy.slowDownEffect);
+
+            // Calculate predicted point
+            Vector3 predictedPos = FirstOrderIntercept(
+                shooterPosition: cannon.position,
+                shooterVelocity: Vector3.zero,
+                shotSpeed: bulletSpeed,
+                targetPosition: targetPos,
+                targetVelocity: enemyForward * enemySpeed
+            );
+
+            Vector3 shootDir = (predictedPos - cannon.position).normalized;
+            Quaternion rot = Quaternion.LookRotation(shootDir);
             Bullet newBullet = Instantiate(bulletPrefab, cannon.position, rot).GetComponent<Bullet>();
             newBullet.InitBullet(bulletSpeed, bulletDamage);
+
 
             ApplyEffects(newBullet);
 
@@ -115,4 +133,60 @@ public class Tower : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
+
+    public static Vector3 FirstOrderIntercept(
+    Vector3 shooterPosition,
+    Vector3 shooterVelocity,
+    float shotSpeed,
+    Vector3 targetPosition,
+    Vector3 targetVelocity)
+    {
+        Vector3 targetRelativePosition = targetPosition - shooterPosition;
+        Vector3 targetRelativeVelocity = targetVelocity - shooterVelocity;
+        float t = FirstOrderInterceptTime(
+            shotSpeed,
+            targetRelativePosition,
+            targetRelativeVelocity
+        );
+        return targetPosition + t * targetRelativeVelocity;
+    }
+
+    public static float FirstOrderInterceptTime(
+        float shotSpeed,
+        Vector3 targetRelativePosition,
+        Vector3 targetRelativeVelocity)
+    {
+        float velocitySquared = targetRelativeVelocity.sqrMagnitude;
+        if (velocitySquared < 0.001f)
+            return 0f;
+
+        float a = velocitySquared - shotSpeed * shotSpeed;
+
+        // If a == 0 then target moves at bullet speed
+        if (Mathf.Abs(a) < 0.001f)
+        {
+            float t = 0.5f * targetRelativePosition.magnitude / shotSpeed;
+            return t;
+        }
+
+        float b = 2f * Vector3.Dot(targetRelativeVelocity, targetRelativePosition);
+        float c = targetRelativePosition.sqrMagnitude;
+        float determinant = b * b - 4f * a * c;
+
+        if (determinant > 0f)
+        {
+            float t1 = (-b + Mathf.Sqrt(determinant)) / (2f * a);
+            float t2 = (-b - Mathf.Sqrt(determinant)) / (2f * a);
+            return Mathf.Min(t1, t2) > 0 ? Mathf.Min(t1, t2) : Mathf.Max(t1, t2);
+        }
+        else if (determinant < 0f)
+        {
+            return 0f; // No solution, aim directly
+        }
+        else
+        {
+            return -b / (2f * a);
+        }
+    }
+
 }

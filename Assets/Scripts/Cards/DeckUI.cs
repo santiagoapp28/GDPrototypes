@@ -16,8 +16,8 @@ public class DeckUI : MonoBehaviour
     public int deckPrice;
     public Button deckButton;
 
-    private List<Card> _deck = new List<Card>();    
-    private List<Card> _hand = new List<Card>();
+    public List<Card> _deck = new List<Card>();    
+    public List<Card> _hand = new List<Card>();
     private DeckManager _deckManager => DeckManager.Instance;
 
     private void Awake()

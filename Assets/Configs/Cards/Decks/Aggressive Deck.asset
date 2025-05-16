@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2ca5daa532ca4e43872ebdbd540bed4, type: 3}
-  m_Name: InitialDeck
+  m_Name: Aggressive Deck
   m_EditorClassIdentifier: 
-  deckName: Initial Deck
-  deckDescription: Deck for the first time user experience
+  deckName: Aggressive Deck
+  deckDescription: Most cards are aggro oriented
+  deckColor: {r: 1, g: 0, b: 0, a: 1}
   cards:
   - {fileID: 11400000, guid: 0da6b6ebe1e35be4f8f8a15c7613c4a4, type: 2}
   - {fileID: 11400000, guid: 0da6b6ebe1e35be4f8f8a15c7613c4a4, type: 2}
@@ -23,6 +24,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0da6b6ebe1e35be4f8f8a15c7613c4a4, type: 2}
   - {fileID: 11400000, guid: 0da6b6ebe1e35be4f8f8a15c7613c4a4, type: 2}
   - {fileID: 11400000, guid: 0da6b6ebe1e35be4f8f8a15c7613c4a4, type: 2}
+  - {fileID: 11400000, guid: 0da6b6ebe1e35be4f8f8a15c7613c4a4, type: 2}
+  - {fileID: 11400000, guid: 0da6b6ebe1e35be4f8f8a15c7613c4a4, type: 2}
+  - {fileID: 11400000, guid: 547b9bc2521fa5f49ba6a232497ab4a0, type: 2}
+  - {fileID: 11400000, guid: 547b9bc2521fa5f49ba6a232497ab4a0, type: 2}
+  - {fileID: 11400000, guid: 547b9bc2521fa5f49ba6a232497ab4a0, type: 2}
   - {fileID: 11400000, guid: 547b9bc2521fa5f49ba6a232497ab4a0, type: 2}
   - {fileID: 11400000, guid: 547b9bc2521fa5f49ba6a232497ab4a0, type: 2}
   - {fileID: 11400000, guid: 547b9bc2521fa5f49ba6a232497ab4a0, type: 2}
@@ -31,7 +37,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 55190e821e78d5246b353581d7eb3fe1, type: 2}
   - {fileID: 11400000, guid: 55190e821e78d5246b353581d7eb3fe1, type: 2}
   - {fileID: 11400000, guid: 55190e821e78d5246b353581d7eb3fe1, type: 2}
-  - {fileID: 11400000, guid: 897b7c25768a3284b832d666602b6de1, type: 2}
-  - {fileID: 11400000, guid: 897b7c25768a3284b832d666602b6de1, type: 2}
+  - {fileID: 11400000, guid: 55190e821e78d5246b353581d7eb3fe1, type: 2}
+  - {fileID: 11400000, guid: 55190e821e78d5246b353581d7eb3fe1, type: 2}
+  - {fileID: 11400000, guid: 55190e821e78d5246b353581d7eb3fe1, type: 2}
   - {fileID: 11400000, guid: 897b7c25768a3284b832d666602b6de1, type: 2}
   - {fileID: 11400000, guid: 897b7c25768a3284b832d666602b6de1, type: 2}

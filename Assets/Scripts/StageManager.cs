@@ -32,6 +32,7 @@ public class StageManager : MonoBehaviour
         {
             SceneManager.LoadScene(levelsScenesIDs[currentStageIndex]);
             AudioManager.Instance.PlaySFX(Sounds.StartGame);
+            AudioManager.Instance.PlayMusic(Music.GameplayMusic);
         }
         else
         {
@@ -42,6 +43,7 @@ public class StageManager : MonoBehaviour
     public void GoToShop()
     {
         AudioManager.Instance.PlaySFX(Sounds.UIClick);
+        AudioManager.Instance.PlayMusic(Music.ShopMusic);
         SceneManager.LoadScene(shopSceneID);
     }
 }

@@ -67,5 +67,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: dc9ae863fbc696544b4bc5ad854bc1e8, type: 3}
   - musicType: 2
     clip: {fileID: 8300000, guid: 2129ab50a31a53046ad5347d5dabd8dc, type: 3}
+  - musicType: 2
+    clip: {fileID: 8300000, guid: dc9ae863fbc696544b4bc5ad854bc1e8, type: 3}
   musicSource: {fileID: 0}
   startInMenu: 0

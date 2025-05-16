@@ -7,5 +7,6 @@ public class Deck : ScriptableObject
 {
     public string deckName;
     public string deckDescription;
+    public Color deckColor;
     public List<Card> cards = new List<Card>();
 }
