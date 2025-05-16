@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 3238260073946170175}
   - component: {fileID: 4864751887593507884}
   - component: {fileID: 8294218591466172861}
+  - component: {fileID: 246578561067950386}
   m_Layer: 5
   m_Name: Card
   m_TagString: Untagged
@@ -197,6 +198,7 @@ MonoBehaviour:
   descriptionText: {fileID: 499498796964849424}
   background: {fileID: 3734862546813682440}
   segmentPrefab: {fileID: 387115391389648802, guid: 8385036b8a18eb445a32a25ce49e7c49, type: 3}
+  cardType: 0
 --- !u!114 &3238260073946170175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,6 +238,26 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &246578561067950386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4162412394361708164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: 1
+  m_FlexibleHeight: 1
+  m_LayoutPriority: 1
 --- !u!1 &7509640064393129233
 GameObject:
   m_ObjectHideFlags: 0

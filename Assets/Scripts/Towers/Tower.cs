@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
+    private TowerManager _towerMng;
     public List<TowerSegment> segments = new List<TowerSegment>();
     public Transform cannon;
     public GameObject bulletPrefab;
@@ -15,6 +16,11 @@ public class Tower : MonoBehaviour
     private float fireCooldown = 0f;
 
     public bool canShoot = false;
+
+    private void Awake()
+    {
+        _towerMng = FindAnyObjectByType<TowerManager>();
+    }
 
     private void Update()
     {
@@ -32,20 +38,29 @@ public class Tower : MonoBehaviour
         segments.Add(segment);
         segment.transform.parent = transform;
 
+        switch (segment.cardtype)
+        {
+            case CardType.Base_Cannon:
+                canShoot = true;
+                break;
+            case CardType.Base_Missile:
+                canShoot = true;
+                bulletPrefab = _towerMng.ChangeBulletType(CardType.Base_Missile);
+                break;
+            case CardType.Modifier_Damage:
+                bulletDamage *= 2;
+                break;
+            case CardType.Modifier_FireRate:
+                fireRate *= 2;
+                break;
+            case CardType.Modifier_Ice:
+                bulletPrefab = _towerMng.ChangeBulletType(CardType.Modifier_Ice);
+                break;
+            default:
+                break;
+        }
 
-        //PLACEHOLDER
-        if(segment.type == 0)
-        {
-            canShoot = true;
-        }
-        else if (segment.type == 1)
-        {
-            bulletDamage *= 2;
-        }
-        else if (segment.type == 2)
-        {
-            fireRate *= 2;
-        }
+        AudioManager.Instance.PlaySFX(Sounds.PlaceSegment);
     }
 
     public void Shoot()
@@ -70,8 +85,28 @@ public class Tower : MonoBehaviour
         {
             Vector3 dir = (nearest.position - cannon.position).normalized;
             Quaternion rot = Quaternion.LookRotation(dir);
-            Instantiate(bulletPrefab, cannon.position, rot);
-            bulletPrefab.GetComponent<Bullet>().InitBullet(bulletSpeed, bulletDamage);
+            Bullet newBullet = Instantiate(bulletPrefab, cannon.position, rot).GetComponent<Bullet>();
+            newBullet.InitBullet(bulletSpeed, bulletDamage);
+
+            ApplyEffects(newBullet);
+
+            AudioManager.Instance.PlaySFX(Sounds.FireBullet);
+        }
+    }
+
+    private void ApplyEffects(Bullet newBullet)
+    {
+        //If there is an ice segment, apply the slow effect
+        float slowDownEffect = 0f;
+        for (int i = 0; i < segments.Count; i++)
+        {
+            if (segments[i].cardtype == CardType.Modifier_Ice)
+                slowDownEffect += 0.1f;
+        }
+        if (slowDownEffect > 0)
+        {
+            newBullet.GetComponent<Bullet>().effectType = EffectType.Slow;
+            newBullet.GetComponent<Bullet>().effectAmount = slowDownEffect;
         }
     }
 

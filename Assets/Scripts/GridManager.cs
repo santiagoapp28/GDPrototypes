@@ -55,20 +55,22 @@ public class GridManager : MonoBehaviour
         return transform.position + offset;
     }
 
-    public void PlaceTowerSegment(Vector2Int gridPos, GameObject towerSegmentPrefab)
+    public void PlaceTowerSegment(Vector2Int gridPos, GameObject towerSegmentPrefab, CardType cardtype)
     {
         Vector3 worldPos = GetSnappedWorldPosition(gridPos);
         GameObject towerSegment = Instantiate(towerSegmentPrefab, worldPos, Quaternion.identity, transform);
 
-        towerSegment.GetComponent<TowerSegment>().gridPosition = gridPos;
+        TowerSegment newTowerSegment = towerSegment.GetComponent<TowerSegment>();
+        newTowerSegment.gridPosition = gridPos;
+        newTowerSegment.cardtype = cardtype;
 
-        if(_towerMng.towerList.TryGetValue(gridPos, out Tower tower))
+        if (_towerMng.towerList.TryGetValue(gridPos, out Tower tower))
         {
-            tower.AddSegment(towerSegment.GetComponent<TowerSegment>());
+            tower.AddSegment(newTowerSegment);
         }
         else
         {
-            _towerMng.AddTower(gridPos, worldPos, towerSegment.GetComponent<TowerSegment>());
+            _towerMng.AddTower(gridPos, worldPos, newTowerSegment);
         }
         towerHeights[gridPos] = GetTowerHeight(gridPos) + 1;
     }

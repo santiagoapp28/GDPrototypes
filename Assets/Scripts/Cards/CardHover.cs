@@ -26,6 +26,8 @@ public class CardHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         transform.DOComplete(); // stop any existing tweens
         transform.DOScale(originalScale * hoverScale, duration).SetEase(Ease.OutBack);
         transform.DOLocalMoveY(originalPosition.y + liftHeight, duration).SetEase(Ease.OutSine);
+
+        AudioManager.Instance.PlaySFX(Sounds.UIHover);
     }
 
     public void OnPointerExit(PointerEventData eventData)

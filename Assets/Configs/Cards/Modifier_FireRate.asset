@@ -17,3 +17,5 @@ MonoBehaviour:
   description: x2 Fire Rate
   color: {r: 0.76470596, g: 0.6, b: 0.5058824, a: 1}
   segmentPrefab: {fileID: 387115391389648802, guid: b1f750b855ec073479991f438c57833e, type: 3}
+  cardType: 2
+  shopPrice: 50

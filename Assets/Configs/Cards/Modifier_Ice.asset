@@ -17,3 +17,5 @@ MonoBehaviour:
   description: + Slow effect
   color: {r: 0.24313727, g: 0.4784314, b: 0.5529412, a: 1}
   segmentPrefab: {fileID: 387115391389648802, guid: 7f886764b62c52843bcc589b3da6bca8, type: 3}
+  cardType: 4
+  shopPrice: 10

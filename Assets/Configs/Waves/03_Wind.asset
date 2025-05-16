@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1540e9a45a5c3cf4288082b09f38c887, type: 3}
+  m_Name: 03_Wind
+  m_EditorClassIdentifier: 
+  waveName: Wind
+  enemyGroups:
+  - enemyPrefab: {fileID: 8640448628472377865, guid: 414f5dd5713c7974c8973c24e3e96022, type: 3}
+    count: 10
+    spawnInterval: 0.5
+    startDelay: 3
+  - enemyPrefab: {fileID: 8640448628472377865, guid: b6b0de36ee777ea4591cb6953220872e, type: 3}
+    count: 6
+    spawnInterval: 1
+    startDelay: 0
+  - enemyPrefab: {fileID: 8640448628472377865, guid: b5ca935e768aeaa4b8a0545c7b50db2d, type: 3}
+    count: 6
+    spawnInterval: 1
+    startDelay: 0
+  timeToNextWave: 15

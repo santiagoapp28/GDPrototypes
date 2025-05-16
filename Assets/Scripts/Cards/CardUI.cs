@@ -9,6 +9,7 @@ public class CardUI : MonoBehaviour
     public TextMeshProUGUI descriptionText;
     public Image background;
     public GameObject segmentPrefab;
+    public CardType cardType;
 
     public void Initialize(Card card)
     {
@@ -17,5 +18,6 @@ public class CardUI : MonoBehaviour
         descriptionText.text = card.description;
         background.color = card.color;
         segmentPrefab = card.segmentPrefab;
+        cardType = card.cardType;
     }
 }

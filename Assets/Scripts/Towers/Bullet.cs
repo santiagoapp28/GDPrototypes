@@ -5,6 +5,8 @@ public class Bullet : MonoBehaviour
     public float speed;
     public float damage;
     public float lifespan = 5f;
+    public EffectType effectType;
+    public float effectAmount = 0.1f;
 
     private void Start()
     {
@@ -30,10 +32,14 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Check if the object can be damaged
-        IDamageable damageable = other.GetComponent<IDamageable>();
+        IDamageable damageable = other.GetComponentInParent<IDamageable>();
         if (damageable != null)
         {
             damageable.TakeDamage(damage);
+            if(effectType != EffectType.None)
+            {
+                damageable.ReceiveEffect(effectType, effectAmount);
+            }
             Destroy(gameObject); // Bullet disappears on hit
         }
         else if (!other.isTrigger) // Hit a wall or something solid

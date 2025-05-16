@@ -19,11 +19,6 @@ public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         gridManager = FindAnyObjectByType<GridManager>();
     }
 
-    private void Update()
-    {
-        
-    }
-
     public void OnBeginDrag(PointerEventData eventData)
     {
         canvasGroup.blocksRaycasts = false;
@@ -31,6 +26,8 @@ public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         // Spawn ghost
         ghost = Instantiate(GetComponent<CardUI>().segmentPrefab);
         SetGhostVisuals(ghost, true); // make it transparent/uninteractive
+
+        AudioManager.Instance.PlaySFX(Sounds.UIClick);
     }
 
     Vector2Int gridPos;
@@ -67,7 +64,8 @@ public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         {
             Vector3 ghostPos = dragger.GetGhostPosition(); // You’ll create this method
             Vector3 spawnPos = ghostPos + new Vector3(0, -gridManager.tileSize, 0);
-            gridManager.PlaceTowerSegment(gridPos, dragger.GetComponent<CardUI>().segmentPrefab);
+            CardType cardType = dragger.GetComponent<CardUI>().cardType;
+            gridManager.PlaceTowerSegment(gridPos, dragger.GetComponent<CardUI>().segmentPrefab, cardType);
 
             dragger.DestroyGhost();
             Destroy(eventData.pointerDrag); // Remove card from hand

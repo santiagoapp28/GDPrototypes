@@ -8,5 +8,16 @@ public class Card : ScriptableObject
     public string description;
     public Color color;
     public GameObject segmentPrefab;
-    // Add any stats like damage, cooldown, etc.
+    public CardType cardType;
+    public int shopPrice;
+}
+
+public enum CardType
+{
+    Base_Cannon,
+    Base_Missile,
+    Modifier_FireRate,
+    Modifier_Damage,
+    Modifier_Ice,
+    Utiliy_TBD
 }
