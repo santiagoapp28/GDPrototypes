@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b7a8957931b0c4489eb33808da81270, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameConfig: {fileID: 11400000, guid: 59f4035e754f6044f92b13863da99aa1, type: 2}
   coins: 100
   wave: 0
 --- !u!114 &1105181494656545782

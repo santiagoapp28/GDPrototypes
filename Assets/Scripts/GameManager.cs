@@ -4,6 +4,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
+    public GameConfig gameConfig;
+
     public int coins;
     public int wave = 0;
 
@@ -16,6 +18,8 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject); // Persist across scenes
+
+        coins = gameConfig.startingCoins;
     }
 
     public void UpdateCoins(int addedCoins)

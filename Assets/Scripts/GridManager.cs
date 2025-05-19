@@ -6,7 +6,7 @@ public class GridManager : MonoBehaviour
     [Header("Grid Settings")]
     public int width;
     public int height;
-    public float tileSize = 1f;
+    public static float tileSize = 1f;
 
     [Header("Tile Prefabs")]
     public GameObject tilePrefab; // Optional visual
@@ -55,9 +55,19 @@ public class GridManager : MonoBehaviour
         return transform.position + offset;
     }
 
-    public void PlaceTowerSegment(Vector2Int gridPos, GameObject towerSegmentPrefab, CardType cardtype)
+    public bool PlaceTowerSegment(Vector2Int gridPos, GameObject towerSegmentPrefab, CardType cardtype)
     {
         Vector3 worldPos = GetSnappedWorldPosition(gridPos);
+
+        if(towerHeights.TryGetValue(gridPos, out int height))
+        {
+            if(height >= GameManager.Instance.gameConfig.towerMaxHeight)
+            {
+                Debug.Log("Tower height limit reached");
+                return false;
+            }
+        }
+
         GameObject towerSegment = Instantiate(towerSegmentPrefab, worldPos, Quaternion.identity, transform);
 
         TowerSegment newTowerSegment = towerSegment.GetComponent<TowerSegment>();
@@ -73,6 +83,8 @@ public class GridManager : MonoBehaviour
             _towerMng.AddTower(gridPos, worldPos, newTowerSegment);
         }
         towerHeights[gridPos] = GetTowerHeight(gridPos) + 1;
+
+        return true;
     }
 
     public int GetTowerHeight(Vector2Int gridPos)

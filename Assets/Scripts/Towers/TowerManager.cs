@@ -12,6 +12,8 @@ public class TowerManager : MonoBehaviour
     public GameObject missileBulletPrefab;
     public GameObject iceBulletPrefab;
 
+    public Action<Vector2Int> OnAddedTower;
+
     public GameObject ChangeBulletType(CardType cardtype)
     {
         switch (cardtype)
@@ -32,5 +34,6 @@ public class TowerManager : MonoBehaviour
         var obj = Instantiate(towerPrefab, snappedPos, Quaternion.identity);
         towerList.Add(gridPos, obj.GetComponent<Tower>());
         obj.GetComponent<Tower>().AddSegment(segment);
+        OnAddedTower(gridPos);
     }
 }
