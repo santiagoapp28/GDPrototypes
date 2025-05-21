@@ -5,4 +5,5 @@ public class GameConfig : ScriptableObject
 {
     public int towerMaxHeight = 5;
     public int startingCoins = 100;
+    public int startingHealth = 100;
 }

@@ -74,13 +74,9 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-
-
     void StartCurrentWave()
     {
         currentWaveIndex++;
-
-
 
         Wave wave = waves[currentWaveIndex];
         UpdateWaveNameText(!string.IsNullOrEmpty(wave.waveName) ? wave.waveName : "Wave " + (currentWaveIndex + 1));
@@ -186,5 +182,19 @@ public class WaveManager : MonoBehaviour
     void UpdateWaveNameText(string text)
     {
         if (waveNameText != null) waveNameText.text = text;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        float minposX = minSpawnPos.position.x;
+        float minposZ = minSpawnPos.position.z;
+        float maxposX = maxSpawnPos.position.x;
+        float maxposZ = maxSpawnPos.position.z;
+        Gizmos.DrawSphere(new Vector3(minposX, minSpawnPos.position.y, minposZ), 0.2f);
+        Gizmos.DrawSphere(new Vector3(maxposX, maxSpawnPos.position.y, maxposZ), 0.2f);
+        Gizmos.DrawSphere(new Vector3(minposX, maxSpawnPos.position.y, maxposZ), 0.2f);
+        Gizmos.DrawSphere(new Vector3(maxposX, maxSpawnPos.position.y, minposZ), 0.2f);
+
     }
 }

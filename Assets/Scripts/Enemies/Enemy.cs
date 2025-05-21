@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public float speed = 5f;
     public float slowDownEffect = 0f; //1f = 100% slow, 0f = no slow
     public int coins;
+    public int damage = 10;
     public float detectionDistance = 3f;
     public float sideRayAngle = 30f; // degrees for side rays
     public float dodgeStrength = 0.5f; // 0 = full forward, 1 = strong sideways
@@ -104,11 +105,7 @@ public class Enemy : MonoBehaviour, IDamageable
         // Notify subscribers (WaveSpawner needs to know it wasn't "killed" but still gone)
         OnEnemyDied?.Invoke(this); // Treat as "dead" for wave counting purposes
 
-        // Optional: Player loses a life via a GameManager
-        // if (GameManager.Instance != null)
-        // {
-        //     GameManager.Instance.LoseLife();
-        // }
+        GameManager.Instance.UpdateHealth(-damage); // Reduce player health
         Destroy(gameObject);
     }
 

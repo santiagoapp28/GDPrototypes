@@ -48,6 +48,9 @@ MonoBehaviour:
   gameConfig: {fileID: 11400000, guid: 59f4035e754f6044f92b13863da99aa1, type: 2}
   coins: 100
   wave: 0
+  currentStageIndex: -1
+  health: 100
+  maxHealth: 100
 --- !u!114 &1105181494656545782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,7 +65,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stages:
   - {fileID: 11400000, guid: 96b4aa9b74f459f468062e8a6837517d, type: 2}
+  - {fileID: 11400000, guid: 7d95d7ae268fb3b4ea590b0e7bf82abf, type: 2}
   - {fileID: 11400000, guid: 95028dd71151a6d4a80748fd05fdad3a, type: 2}
-  currentStageIndex: -1
-  levelsScenesIDs: 0200000003000000
+  levelsScenesIDs: 020000000300000004000000
   shopSceneID: 1

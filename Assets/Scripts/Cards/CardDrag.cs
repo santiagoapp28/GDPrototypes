@@ -33,6 +33,7 @@ public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             if (ghost)
             {
                 _dragCancelled = true;
+                gridManager.StopTileHighlights(); // Stop tile highlight
 
                 Destroy(ghost);
                 ResetCardPosition();
@@ -67,6 +68,12 @@ public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         }
 
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+        rectTransform.anchoredPosition = new Vector2(
+            Mathf.Clamp(rectTransform.anchoredPosition.x, 
+            -canvas.GetComponent<RectTransform>().rect.width/2, canvas.GetComponent<RectTransform>().rect.width),
+            Mathf.Clamp(rectTransform.anchoredPosition.y,
+            -canvas.GetComponent<RectTransform>().rect.height/2, -canvas.GetComponent<RectTransform>().rect.height / 4)
+        );
 
         // Update ghost position
         if (ghost && gridManager)
@@ -81,8 +88,11 @@ public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
                         Mathf.FloorToInt((worldPos2.x - gridManager.transform.position.x) / GridManager.tileSize),
                         Mathf.FloorToInt((worldPos2.z - gridManager.transform.position.z) / GridManager.tileSize)
                     );
+                    gridPos = new Vector2Int(Mathf.Clamp(gridPos.x, 0, gridManager.width - 1), 
+                        Mathf.Clamp(gridPos.y, 0, gridManager.height - 1));
                     int height = gridManager.GetTowerHeight(gridPos);
                     Vector3 snappedPos = gridManager.GetSnappedWorldPosition(gridPos);
+                    gridManager.TileHighlight(gridPos); // Highlight tile
                     snappedPos.y += GridManager.tileSize; // Hover one tile above
                     ghost.transform.position = snappedPos;
                 }
@@ -108,6 +118,7 @@ public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
             bool placedSegment = gridManager.PlaceTowerSegment(gridPos, cardUI.segmentPrefab, cardType);
             dragger.DestroyGhost();
+            gridManager.StopTileHighlights();
 
             if (placedSegment)
             {

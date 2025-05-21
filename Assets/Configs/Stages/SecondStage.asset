@@ -10,9 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 646f9063db44860489c1a9577f55fb43, type: 3}
-  m_Name: ZeroStage
+  m_Name: SecondStage
   m_EditorClassIdentifier: 
-  waveName: First Stage
+  waveName: Second Stage
   waves:
   - {fileID: 11400000, guid: 634abe7a701247c43b98971b22d979ef, type: 2}
   - {fileID: 11400000, guid: 37ed447abe647e646b8c40a8f06be657, type: 2}
+  - {fileID: 11400000, guid: 96692c502aac4b64ab601e74cf52ba93, type: 2}
+  - {fileID: 11400000, guid: 8f6c41eef48a2ed4d8762ad94eaac813, type: 2}
+  - {fileID: 11400000, guid: 3a21e1ab602450746a0d988ab9e9a3a8, type: 2}

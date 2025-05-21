@@ -15,6 +15,8 @@ public class GridManager : MonoBehaviour
     private Dictionary<Vector2Int, int> towerHeights = new Dictionary<Vector2Int, int>();
     private TowerManager _towerMng;
 
+    private Dictionary<Vector2Int, Tile> tiles = new Dictionary<Vector2Int, Tile>();
+
     private void Start()
     {
         GenerateGrid();
@@ -30,20 +32,9 @@ public class GridManager : MonoBehaviour
                 Vector2Int gridPos = new Vector2Int(x, z);
                 Vector3 worldPos = transform.position + new Vector3(x * tileSize, 0, z * tileSize);
 
-                GameObject tile = new GameObject($"Tile_{x}_{z}");
-                tile.transform.SetParent(transform);
-                tile.transform.position = worldPos;
-                tile.layer = LayerMask.NameToLayer("Tile");
-
-                // Collider for drop detection
-                BoxCollider collider = tile.AddComponent<BoxCollider>();
-                collider.size = new Vector3(tileSize, 0.2f, tileSize);
-
-                // Optional visual
-                if (tilePrefab != null)
-                {
-                    Instantiate(tilePrefab, worldPos, Quaternion.identity, tile.transform);
-                }
+                GameObject tile = Instantiate(tilePrefab, worldPos, Quaternion.identity, transform);
+                tile.name = "Tile_" + x + "_" + z;
+                tiles.Add(gridPos, tile.GetComponent<Tile>());
             }
         }
     }
@@ -55,11 +46,39 @@ public class GridManager : MonoBehaviour
         return transform.position + offset;
     }
 
+    Tile previousHighlight;
+    public void TileHighlight(Vector2Int tile)
+    {
+        if (previousHighlight != null && previousHighlight != tiles[tile])
+        {
+            previousHighlight.StopHighlight();
+        }
+        previousHighlight = tiles[tile];
+        if (tiles.TryGetValue(tile, out Tile tileComponent))
+        {
+            tileComponent.StartHighlight();
+        }
+    }
+
+    public void StopTileHighlights()
+    {
+        if (previousHighlight != null)
+        {
+            previousHighlight.StopHighlight();
+        }
+    }
+
     public bool PlaceTowerSegment(Vector2Int gridPos, GameObject towerSegmentPrefab, CardType cardtype)
     {
         Vector3 worldPos = GetSnappedWorldPosition(gridPos);
 
-        if(towerHeights.TryGetValue(gridPos, out int height))
+        if (!tiles[gridPos].canPlaceTower)
+        {
+            Debug.Log("Tile is blocked by obstacle");
+            return false;
+        }
+
+        if (towerHeights.TryGetValue(gridPos, out int height))
         {
             if(height >= GameManager.Instance.gameConfig.towerMaxHeight)
             {
@@ -90,5 +109,13 @@ public class GridManager : MonoBehaviour
     public int GetTowerHeight(Vector2Int gridPos)
     {
         return towerHeights.TryGetValue(gridPos, out int height) ? height : 0;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(GetSnappedWorldPosition(new Vector2Int(0, 0)), 0.2f);
+        Gizmos.DrawSphere(GetSnappedWorldPosition(new Vector2Int(width - 1, height - 1)), 0.2f);
+        Gizmos.DrawSphere(GetSnappedWorldPosition(new Vector2Int(0, height - 1)), 0.2f);
+        Gizmos.DrawSphere(GetSnappedWorldPosition(new Vector2Int(width - 1, 0)), 0.2f);
     }
 }

@@ -5,32 +5,32 @@ using UnityEngine;
 public class StageManager : MonoBehaviour
 {
     public List<Stage> stages;
-    public int currentStageIndex = -1;
-    private WaveManager _waveManager;
-    public List<int> levelsScenesIDs = new List<int>();
+    public int startingLevelIndex = 2;
     public int shopSceneID;
 
     public List<Wave> GetStageWaves()
     {
-        return stages[Mathf.Clamp(currentStageIndex, 0, stages.Count - 1)].waves;
+        return stages[Mathf.Clamp(GameManager.Instance.currentStageIndex, 0, stages.Count - 1)].waves;
     }
 
     public void StartNewStage()
     {
-        currentStageIndex++;
-        if (currentStageIndex >= stages.Count)
+        GameManager.Instance.currentStageIndex++;
+        if (GameManager.Instance.currentStageIndex >= stages.Count)
         {
-            Debug.Log("All stages completed!");
-            return;
+            //WON THE GAME
+            GameManager.Instance.currentStageIndex--;
+            Debug.LogWarning("All stages completed. Repeating last stage");
         }
+        GameManager.Instance.NewStage();
         GoToNextLevel();
     }
 
     public void GoToNextLevel()
     {
-        if (currentStageIndex < stages.Count)
+        if (GameManager.Instance.currentStageIndex < stages.Count)
         {
-            SceneManager.LoadScene(levelsScenesIDs[currentStageIndex]);
+            SceneManager.LoadScene(startingLevelIndex + GameManager.Instance.currentStageIndex);
             AudioManager.Instance.PlaySFX(Sounds.StartGame);
             AudioManager.Instance.PlayMusic(Music.GameplayMusic);
         }
@@ -45,5 +45,12 @@ public class StageManager : MonoBehaviour
         AudioManager.Instance.PlaySFX(Sounds.UIClick);
         AudioManager.Instance.PlayMusic(Music.ShopMusic);
         SceneManager.LoadScene(shopSceneID);
+    }
+
+    public void GoToMenu()
+    {
+        AudioManager.Instance.PlaySFX(Sounds.UIClick);
+        AudioManager.Instance.PlayMusic(Music.MenuMusic);
+        SceneManager.LoadScene(0);
     }
 }

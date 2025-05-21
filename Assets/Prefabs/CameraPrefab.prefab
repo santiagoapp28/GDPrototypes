@@ -87,7 +87,7 @@ MonoBehaviour:
   zoomSpeed: 8
   zoomSmoothTime: 0.1
   xSpeed: 300
-  ySpeed: 100
+  ySpeed: 240
   yMinLimit: 10
   yMaxLimit: 80
   rotationSmoothTime: 0.1

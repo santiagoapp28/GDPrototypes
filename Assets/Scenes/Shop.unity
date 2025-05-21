@@ -354,7 +354,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 550712004}
-  - component: {fileID: 550712006}
   - component: {fileID: 550712005}
   - component: {fileID: 550712007}
   - component: {fileID: 550712003}
@@ -479,20 +478,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 547b9bc2521fa5f49ba6a232497ab4a0, type: 2}
   - {fileID: 11400000, guid: 55190e821e78d5246b353581d7eb3fe1, type: 2}
   - {fileID: 11400000, guid: 0da6b6ebe1e35be4f8f8a15c7613c4a4, type: 2}
---- !u!114 &550712006
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 550712000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8815034100c1db442ad069d6752c9e87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   coinsText: {fileID: 9030597217529624818}
-  shopButton: {fileID: 0}
 --- !u!114 &550712007
 MonoBehaviour:
   m_ObjectHideFlags: 0

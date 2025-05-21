@@ -334,9 +334,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 300
-  speed: 0.7
+  speed: 0.9
   slowDownEffect: 0
   coins: 50
+  damage: 20
   detectionDistance: 4
   sideRayAngle: 30
   dodgeStrength: 0.5

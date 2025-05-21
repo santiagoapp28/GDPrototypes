@@ -424,6 +424,7 @@ MonoBehaviour:
   speed: 1.3
   slowDownEffect: 0
   coins: 30
+  damage: 5
   detectionDistance: 3
   sideRayAngle: 30
   dodgeStrength: 0.5
