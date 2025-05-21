@@ -20,6 +20,8 @@ public class Enemy : MonoBehaviour, IDamageable
     private EnemyUI _enemyUI;
     private EnemyFeedback _enemyFeedback;
 
+    public float flyingEnemyHeight = 1f; // Height for flying enemies
+
     private Vector3 initialDirection;
 
     private void Start()
@@ -55,6 +57,7 @@ public class Enemy : MonoBehaviour, IDamageable
         Vector3 blendedDir = Vector3.Lerp(initialDirection, initialDirection + avoidance, dodgeStrength);
         Vector3 finalDir = blendedDir.normalized;
         transform.position += finalDir * speed * (1 - slowDownEffect) * Time.deltaTime;
+        transform.position = new Vector3(transform.position.x, flyingEnemyHeight,transform.position.z);
 
         Quaternion targetRot = Quaternion.LookRotation(finalDir);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 5f);

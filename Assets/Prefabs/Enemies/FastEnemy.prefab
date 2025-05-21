@@ -333,7 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffabdf4e7daf9344b9b35a7ae7969d49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 30
+  health: 20
   speed: 2.2
   slowDownEffect: 0
   coins: 20
@@ -344,6 +344,7 @@ MonoBehaviour:
   towerLayer:
     serializedVersion: 2
     m_Bits: 64
+  flyingEnemyHeight: -1
 --- !u!114 &8388563913785966359
 MonoBehaviour:
   m_ObjectHideFlags: 0
