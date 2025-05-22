@@ -15,6 +15,7 @@ public class StageManager : MonoBehaviour
 
     public void StartNewStage()
     {
+        GameManager.Instance.ChangeTimeScale(1f); //reset timescale
         GameManager.Instance.currentStageIndex++;
         if (GameManager.Instance.currentStageIndex >= stages.Count)
         {
@@ -45,6 +46,7 @@ public class StageManager : MonoBehaviour
         AudioManager.Instance.PlaySFX(Sounds.UIClick);
         AudioManager.Instance.PlayMusic(Music.ShopMusic);
         SceneManager.LoadScene(shopSceneID);
+        GameManager.Instance.ChangeTimeScale(1f); //reset timescale
     }
 
     public void GoToMenu()
@@ -52,5 +54,6 @@ public class StageManager : MonoBehaviour
         AudioManager.Instance.PlaySFX(Sounds.UIClick);
         AudioManager.Instance.PlayMusic(Music.MenuMusic);
         SceneManager.LoadScene(0);
+        GameManager.Instance.ChangeTimeScale(1f); //reset timescale
     }
 }

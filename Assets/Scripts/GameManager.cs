@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public int currentStageIndex = -1;
     public int health = 100;
     public int maxHealth = 100;
+    public float timeScale = 1f;
 
     private void Awake()
     {
@@ -55,6 +56,12 @@ public class GameManager : MonoBehaviour
             coins = 9999;
             UpdateCoins(coins);
         }
+    }
+
+    public void ChangeTimeScale(float time)
+    {
+        timeScale = time;
+        Time.timeScale = timeScale;
     }
 
     private void GetConfigValues()

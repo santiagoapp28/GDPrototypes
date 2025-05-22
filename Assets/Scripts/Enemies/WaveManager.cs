@@ -17,6 +17,9 @@ public class WaveManager : MonoBehaviour
     public TextMeshProUGUI waveNameText;
     public TextMeshProUGUI enemiesRemainingText;
     public Button nextWaveButton;
+    public Button timeScaleButton;
+    public float[] timeScaleOptions = { 1f, 2f, 4f };
+    public TextMeshProUGUI timeScaleText;
 
     public int currentWaveIndex = -1;
     private SpawnState currentState;
@@ -30,6 +33,7 @@ public class WaveManager : MonoBehaviour
         if (nextWaveButton != null)
         {
             nextWaveButton.onClick.AddListener(OnNextWaveButtonPressed);
+            timeScaleButton.onClick.AddListener(OnTimeScaleButtonPressed);
             nextWaveButton.gameObject.SetActive(true); // Show at start
         }
 
@@ -54,6 +58,7 @@ public class WaveManager : MonoBehaviour
         }
     }
 
+    private int timeScaleIndex = 0;
     void SetState(SpawnState newState)
     {
         currentState = newState;
@@ -63,7 +68,27 @@ public class WaveManager : MonoBehaviour
             bool canPress = (currentState == SpawnState.WAITING_FOR_NEXT_WAVE) ||
                             (currentState == SpawnState.WAITING_TO_START && currentWaveIndex == -1 && waves.Count > 0);
             nextWaveButton.gameObject.SetActive(canPress);
+
+            if (currentState == SpawnState.SPAWNING)
+            {
+                timeScaleButton.gameObject.SetActive(true);
+            }
+            else
+            {
+                timeScaleButton.gameObject.SetActive(false);
+            }
         }
+    }
+
+    void OnTimeScaleButtonPressed()
+    {
+        if(timeScaleIndex >= timeScaleOptions.Length - 1)
+        {
+            timeScaleIndex = -1;
+        }
+        timeScaleIndex++;
+        GameManager.Instance.ChangeTimeScale(timeScaleOptions[timeScaleIndex]);
+        timeScaleText.text = "x" + timeScaleOptions[timeScaleIndex].ToString("0");
     }
 
     void OnNextWaveButtonPressed()
@@ -169,10 +194,11 @@ public class WaveManager : MonoBehaviour
             if (currentWaveIndex + 1 >= waves.Count)
             {
                 SetState(SpawnState.ALL_WAVES_COMPLETE);
-                UpdateWaveNameText("All Waves Cleared!");
+                UpdateWaveNameText("Stage Cleared!");
                 if (nextWaveButton != null) nextWaveButton.gameObject.SetActive(false);
-                Debug.Log("ALL WAVES COMPLETED!");
+                Debug.Log("STAGE COMPLETED!");
 
+                FindAnyObjectByType<UIManager>().ShowRelicSelectionPanel();
                 FindAnyObjectByType<UIManager>().ShowShopButton();
                 return;
             }

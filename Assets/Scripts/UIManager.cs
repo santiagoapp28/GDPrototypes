@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ public class UIManager : MonoBehaviour
     public Button shopButton;
     public GameObject restartPanel;
     public Button restartButton;
+    public GameObject relicPanel;
     private WaveManager _waveManager;
 
     public TextMeshProUGUI healthText;
@@ -50,5 +52,10 @@ public class UIManager : MonoBehaviour
     public void ShowShopButton()
     {
         shopButton.gameObject.SetActive(true);
+    }
+
+    public void ShowRelicSelectionPanel()
+    {
+        relicPanel.gameObject.SetActive(true);
     }
 }

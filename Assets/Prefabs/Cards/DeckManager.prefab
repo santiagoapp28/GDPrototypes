@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9096559255551068956}
   - component: {fileID: 7109422577187284600}
+  - component: {fileID: 2375311614207261859}
   m_Layer: 0
   m_Name: DeckManager
   m_TagString: Untagged
@@ -46,3 +47,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialDeck: {fileID: 11400000, guid: d1365c36a61fe1446ac5bf73c7d48615, type: 2}
   deck: []
+--- !u!114 &2375311614207261859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7949326533499665244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cba6c52d8f7482641a7ddc77296b228c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rarityColor:
+  - {r: 0.5882353, g: 0.5803922, b: 0.5882353, a: 1}
+  - {r: 0.80392164, g: 0.6666667, b: 0, a: 1}
+  - {r: 0.69411767, g: 0, b: 0.67058825, a: 1}
+  - {r: 0, g: 0.7607844, b: 0.81568635, a: 1}
+  currentRelics: []
+  availableRelics:
+  - {fileID: 11400000, guid: feef7146a5a850e4e820f309e8eb6327, type: 2}
+  - {fileID: 11400000, guid: feef7146a5a850e4e820f309e8eb6327, type: 2}
+  - {fileID: 11400000, guid: 894e81ddf7bee3b4885a115b8cd2cdec, type: 2}
+  - {fileID: 11400000, guid: 894e81ddf7bee3b4885a115b8cd2cdec, type: 2}
+  - {fileID: 11400000, guid: 944b30f9e8e9bdb43a03b05d2da9be8b, type: 2}
+  - {fileID: 11400000, guid: 944b30f9e8e9bdb43a03b05d2da9be8b, type: 2}
+  - {fileID: 11400000, guid: 2fa930646bd5bc24686e04af8652d348, type: 2}
+  - {fileID: 11400000, guid: 2fa930646bd5bc24686e04af8652d348, type: 2}

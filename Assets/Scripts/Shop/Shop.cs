@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -5,7 +6,9 @@ using UnityEngine;
 public class Shop : MonoBehaviour
 {
     public ShopCardSlot[] slots;
-    public Card[] availableCards; // Assign from inspector or fill dynamically
+    public ShopRelicSlot relicSlot;
+    public List<Relic> relics = new List<Relic>();
+    public List<Card> availableCards = new List<Card>();
     public TextMeshProUGUI coinsText;
 
     void Start()
@@ -19,15 +22,12 @@ public class Shop : MonoBehaviour
     {
         for (int i = 0; i < slots.Length; i++)
         {
-            if (i < availableCards.Length)
-            {
-                slots[i].Setup(availableCards[i]);
-            }
-            else
-            {
-                slots[i].gameObject.SetActive(false);
-            }
+            int randomIndex = Random.Range(0, availableCards.Count);
+            slots[i].Setup(availableCards[randomIndex]);
+            availableCards.RemoveAt(randomIndex);
         }
+
+        relicSlot.Setup(relics[Random.Range(0, relics.Count)]);
     }
 
     public void NextWave()
