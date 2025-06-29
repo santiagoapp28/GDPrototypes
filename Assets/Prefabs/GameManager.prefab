@@ -51,6 +51,7 @@ MonoBehaviour:
   currentStageIndex: -1
   health: 100
   maxHealth: 100
+  timeScale: 1
 --- !u!114 &1105181494656545782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,9 +64,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eab56e8c8b1a9ab4f9db54204f0a85e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stages:
+  easyStages:
   - {fileID: 11400000, guid: 96b4aa9b74f459f468062e8a6837517d, type: 2}
+  mediumStages:
   - {fileID: 11400000, guid: 7d95d7ae268fb3b4ea590b0e7bf82abf, type: 2}
+  hardStages:
   - {fileID: 11400000, guid: 95028dd71151a6d4a80748fd05fdad3a, type: 2}
-  levelsScenesIDs: 020000000300000004000000
+  easyLevels:
+  - {fileID: 11400000, guid: 4128a46e61aaae349b403b378eee8369, type: 2}
+  - {fileID: 11400000, guid: e10e692e489153f4e80c9162d18d893c, type: 2}
+  - {fileID: 11400000, guid: 6dd24fce7b86e2745b3b914ddb1a170a, type: 2}
+  mediumLevels:
+  - {fileID: 11400000, guid: 02230100c99fbd84288f0c4c12cb3ea4, type: 2}
+  - {fileID: 11400000, guid: 9725c0789c7df61479746e0191514662, type: 2}
+  hardLevels:
+  - {fileID: 11400000, guid: fd11b1c0cd700d64fa03adc5ab1d7dfd, type: 2}
+  gameplaySceneID: 2
   shopSceneID: 1

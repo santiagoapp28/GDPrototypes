@@ -8,6 +8,9 @@ public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
 
+    [Header("Raycasting")]
+    public LayerMask gridLayerMask;
+
     private GameObject ghost;
     private GridManager gridManager;
 
@@ -76,24 +79,30 @@ public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         );
 
         // Update ghost position
-        if (ghost && gridManager)
+        if (ghost && gridManager && gridManager.levelData != null)
         {
             Ray ray = Camera.main.ScreenPointToRay(eventData.position);
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, gridLayerMask))
             {
                 if (gridManager != null)
                 {
-                    Vector3 worldPos2 = hit.point;
+                    Vector3 hitPoint = hit.point;
+                    float offsetX = (gridManager.GridWidth - 1) * GridManager.tileSize / 2.0f;
+                    float offsetZ = (gridManager.GridHeight - 1) * GridManager.tileSize / 2.0f;
+
+                    float gridX = (hitPoint.x - gridManager.transform.position.x + offsetX) / GridManager.tileSize;
+                    float gridZ = (hitPoint.z - gridManager.transform.position.z + offsetZ) / GridManager.tileSize;
+
                     gridPos = new Vector2Int(
-                        Mathf.FloorToInt((worldPos2.x - gridManager.transform.position.x) / GridManager.tileSize),
-                        Mathf.FloorToInt((worldPos2.z - gridManager.transform.position.z) / GridManager.tileSize)
+                        Mathf.RoundToInt(gridX),
+                        Mathf.RoundToInt(gridZ)
                     );
-                    gridPos = new Vector2Int(Mathf.Clamp(gridPos.x, 0, gridManager.width - 1), 
-                        Mathf.Clamp(gridPos.y, 0, gridManager.height - 1));
+                    gridPos = new Vector2Int(Mathf.Clamp(gridPos.x, 0, gridManager.GridWidth - 1),
+                        Mathf.Clamp(gridPos.y, 0, gridManager.GridHeight - 1));
                     int height = gridManager.GetTowerHeight(gridPos);
                     Vector3 snappedPos = gridManager.GetSnappedWorldPosition(gridPos);
                     gridManager.TileHighlight(gridPos); // Highlight tile
-                    snappedPos.y += GridManager.tileSize; // Hover one tile above
+                    snappedPos.y += GridManager.tileSize + 1; // Hover one tile above
                     ghost.transform.position = snappedPos;
                 }
             }

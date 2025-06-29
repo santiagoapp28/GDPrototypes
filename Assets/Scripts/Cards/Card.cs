@@ -18,6 +18,7 @@ public enum CardType
     Base_Missile,
     Modifier_FireRate,
     Modifier_Damage,
-    Modifier_Ice,
-    Utiliy_TBD
+    Effect_Ice,
+    Modifier_Range,
+    Effect_Fire
 }

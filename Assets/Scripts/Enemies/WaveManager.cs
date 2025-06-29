@@ -10,8 +10,6 @@ public class WaveManager : MonoBehaviour
 
     [Header("Wave Configuration")]
     public List<Wave> waves;
-    public Transform minSpawnPos;
-    public Transform maxSpawnPos;
 
     [Header("UI")]
     public TextMeshProUGUI waveNameText;
@@ -25,11 +23,14 @@ public class WaveManager : MonoBehaviour
     private SpawnState currentState;
     private Coroutine spawnWaveCoroutine;
     private List<Enemy> activeEnemies = new();
+    private GridManager _gridManager;
 
     void Start()
     {
-        waves = FindAnyObjectByType<StageManager>().GetStageWaves();
-
+        StageManager stageManager = FindAnyObjectByType<StageManager>();
+        _gridManager = FindAnyObjectByType<GridManager>();
+        waves = stageManager.GetStageWaves();
+        
         if (nextWaveButton != null)
         {
             nextWaveButton.onClick.AddListener(OnNextWaveButtonPressed);
@@ -149,10 +150,21 @@ public class WaveManager : MonoBehaviour
 
     void SpawnEnemy(GameObject enemyPrefab)
     {
-        Vector3 spawnPos = new Vector3(Random.Range(minSpawnPos.transform.position.x, maxSpawnPos.transform.position.x),
-                                       minSpawnPos.transform.position.y,
-                                       Random.Range(minSpawnPos.transform.position.z, maxSpawnPos.transform.position.z));
-        GameObject enemyGO = Instantiate(enemyPrefab, spawnPos, maxSpawnPos.rotation);
+        if (_gridManager == null)
+        {
+            Debug.LogError("GridManager not found! Cannot determine spawn area.");
+            return;
+        }
+
+        // Spawn within the last 3 rows (enemy area at the far end of the grid)
+        int enemyAreaStartRow = _gridManager.GridHeight - 3;
+        int spawnX = Random.Range(0, _gridManager.GridWidth);
+        int spawnZ = Random.Range(enemyAreaStartRow, _gridManager.GridHeight);
+        Vector2Int gridPos = new Vector2Int(spawnX, spawnZ);
+
+        Vector3 spawnPos = _gridManager.GetSnappedWorldPosition(gridPos);
+        // Enemies should face towards the castle (negative Z direction)
+        GameObject enemyGO = Instantiate(enemyPrefab, spawnPos, Quaternion.LookRotation(Vector3.back));
         Enemy newEnemy = enemyGO.GetComponent<Enemy>();
 
         if (newEnemy != null)
@@ -212,15 +224,27 @@ public class WaveManager : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        float minposX = minSpawnPos.position.x;
-        float minposZ = minSpawnPos.position.z;
-        float maxposX = maxSpawnPos.position.x;
-        float maxposZ = maxSpawnPos.position.z;
-        Gizmos.DrawSphere(new Vector3(minposX, minSpawnPos.position.y, minposZ), 0.2f);
-        Gizmos.DrawSphere(new Vector3(maxposX, maxSpawnPos.position.y, maxposZ), 0.2f);
-        Gizmos.DrawSphere(new Vector3(minposX, maxSpawnPos.position.y, maxposZ), 0.2f);
-        Gizmos.DrawSphere(new Vector3(maxposX, maxSpawnPos.position.y, minposZ), 0.2f);
+        if (_gridManager == null || !Application.isPlaying) return;
 
+        Gizmos.color = Color.red;
+
+        // Define the corners of the spawn area in grid coordinates
+        int enemyAreaStartRow = _gridManager.GridHeight - 3;
+        Vector2Int bottomLeft = new Vector2Int(0, enemyAreaStartRow);
+        Vector2Int topRight = new Vector2Int(_gridManager.GridWidth - 1, _gridManager.GridHeight - 1);
+        Vector2Int topLeft = new Vector2Int(0, _gridManager.GridHeight - 1);
+        Vector2Int bottomRight = new Vector2Int(_gridManager.GridWidth - 1, enemyAreaStartRow);
+
+        // Get world positions for the corners
+        Vector3 blPos = _gridManager.GetSnappedWorldPosition(bottomLeft);
+        Vector3 trPos = _gridManager.GetSnappedWorldPosition(topRight);
+        Vector3 tlPos = _gridManager.GetSnappedWorldPosition(topLeft);
+        Vector3 brPos = _gridManager.GetSnappedWorldPosition(bottomRight);
+
+        // Draw lines to form a rectangle
+        Gizmos.DrawLine(blPos, brPos);
+        Gizmos.DrawLine(brPos, trPos);
+        Gizmos.DrawLine(trPos, tlPos);
+        Gizmos.DrawLine(tlPos, blPos);
     }
 }

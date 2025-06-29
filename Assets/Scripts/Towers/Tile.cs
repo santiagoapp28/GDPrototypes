@@ -6,14 +6,6 @@ public class Tile : MonoBehaviour
     public GameObject negativePlacementFeedback;
     public GameObject positivePlacementFeedback;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("Obstacle"))
-        {
-            canPlaceTower = false;
-        }
-    }
-
     public void StartHighlight()
     {
         if (canPlaceTower)

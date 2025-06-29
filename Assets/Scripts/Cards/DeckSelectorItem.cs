@@ -30,8 +30,15 @@ public class DeckSelectorItem : MonoBehaviour
 
     private void OnSelectDeck()
     {
+        // Set the selected deck for the new run
         DeckManager.Instance.deck = deck.cards;
-        GameManager.Instance.GetComponent<StageManager>().StartNewStage();
+
+        // Reset game progress to start a fresh run on Easy difficulty
+        GameManager.Instance.currentStageIndex = -1;
+        GameManager.Instance.GetConfigValues();
+
+        StageManager stageManager = GameManager.Instance.GetComponent<StageManager>();
+        stageManager.StartNewStage();
     }
 
     private void OnViewDeck()

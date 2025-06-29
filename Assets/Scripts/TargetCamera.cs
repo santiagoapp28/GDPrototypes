@@ -10,7 +10,14 @@ public class TargetCamera : MonoBehaviour
     private void Start()
     {
         _towerManager = FindAnyObjectByType<TowerManager>();
-        _towerManager.OnAddedTower += OnAddedTower;
+        if (_towerManager != null)
+        {
+            _towerManager.OnAddedTower += OnAddedTower;
+        }
+        else
+        {
+            Debug.LogWarning("TargetCamera could not find a TowerManager in the scene.", this);
+        }
     }
 
     public void OnAddedTower(Vector2Int pos)

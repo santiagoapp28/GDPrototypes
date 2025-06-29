@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Tower : MonoBehaviour
@@ -8,12 +9,12 @@ public class Tower : MonoBehaviour
     public List<TowerSegment> segments = new List<TowerSegment>();
     public Transform cannon;
     public GameObject bulletPrefab;
-    public float detectionRadius = 20f;
+    public float towerRange = 20f;
     public LayerMask enemyLayer;
     public float bulletSpeed = 10f;
     public float bulletDamage = 10f;
     public float fireRate = 1f; // bullets per second (e.g. 1 shot per second)
-    private float fireCooldown = 0f;
+    private float _fireRateCooldown = 0f;
 
     public bool canShoot = false;
 
@@ -24,12 +25,12 @@ public class Tower : MonoBehaviour
 
     private void Update()
     {
-        fireCooldown -= Time.deltaTime;
+        _fireRateCooldown -= Time.deltaTime;
 
-        if (fireCooldown <= 0f)
+        if (_fireRateCooldown <= 0f)
         {
             Shoot();
-            fireCooldown = 1f / fireRate;
+            _fireRateCooldown = 1f / fireRate;
         }
     }
 
@@ -51,10 +52,16 @@ public class Tower : MonoBehaviour
                 bulletDamage *= 2;
                 break;
             case CardType.Modifier_FireRate:
-                fireRate *= 2;
+                fireRate *= 1.5f;
                 break;
-            case CardType.Modifier_Ice:
-                bulletPrefab = _towerMng.ChangeBulletType(CardType.Modifier_Ice);
+            case CardType.Effect_Ice:
+                bulletPrefab = _towerMng.ChangeBulletType(CardType.Effect_Ice);
+                break;
+            case CardType.Effect_Fire:
+                bulletPrefab = _towerMng.ChangeBulletType(CardType.Effect_Fire);
+                break;
+            case CardType.Modifier_Range:
+                towerRange += 10f;
                 break;
             default:
                 break;
@@ -67,7 +74,7 @@ public class Tower : MonoBehaviour
     {
         if (!canShoot) return;
 
-        Collider[] hits = Physics.OverlapSphere(transform.position, detectionRadius, enemyLayer);
+        Collider[] hits = Physics.OverlapSphere(transform.position, towerRange, enemyLayer);
         Transform nearest = null;
         float minDist = Mathf.Infinity;
 
@@ -118,7 +125,7 @@ public class Tower : MonoBehaviour
         float slowDownEffect = 0f;
         for (int i = 0; i < segments.Count; i++)
         {
-            if (segments[i].cardtype == CardType.Modifier_Ice)
+            if (segments[i].cardtype == CardType.Effect_Ice)
                 slowDownEffect += 0.1f;
         }
         if (slowDownEffect > 0)
@@ -131,7 +138,7 @@ public class Tower : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+        Gizmos.DrawWireSphere(transform.position, towerRange);
     }
 
     public static Vector3 FirstOrderIntercept(
@@ -189,4 +196,9 @@ public class Tower : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, towerRange);
+    }
 }

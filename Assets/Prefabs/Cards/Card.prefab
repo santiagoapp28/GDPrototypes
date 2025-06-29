@@ -226,6 +226,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cc3c6f5c73bba048b8e606132111430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridLayerMask:
+    serializedVersion: 2
+    m_Bits: 1015
 --- !u!225 &8294218591466172861
 CanvasGroup:
   m_ObjectHideFlags: 0

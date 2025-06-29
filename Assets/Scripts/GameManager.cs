@@ -28,6 +28,13 @@ public class GameManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject); // Persist across scenes
 
+        if (gameConfig == null)
+        {
+            Debug.LogError("GameConfig is not assigned in the GameManager. Please assign it in the inspector.", this);
+            enabled = false;
+            return;
+        }
+
         GetConfigValues();
 
         if (currentStageIndex == -1 && FindAnyObjectByType<WaveManager>() != null)
@@ -64,7 +71,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = timeScale;
     }
 
-    private void GetConfigValues()
+    public void GetConfigValues()
     {
         coins = gameConfig.startingCoins;
         health = gameConfig.startingHealth;

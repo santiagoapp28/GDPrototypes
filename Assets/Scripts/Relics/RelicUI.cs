@@ -18,14 +18,14 @@ public class RelicUI : MonoBehaviour
         relics.Clear();
         foreach (var relic in RelicManager.Instance.currentRelics)
         {
-            if (relics.ContainsKey(relic)) return;
+            if (!relics.ContainsKey(relic))
+            {
+                GameObject relicInstance = Instantiate(relicPrefab, transform); // Instantiate the relic prefab
+                relics.Add(relic, relicInstance); // Add the relic to the dictionary
 
-            GameObject relicInstance = Instantiate(relicPrefab, transform); // Instantiate the relic prefab
-            relics.Add(relic, relicInstance); // Add the relic to the dictionary
-
-            relicPrefab.GetComponent<Image>().sprite = relic.image; // Set the image of the relic
-            relicPrefab.GetComponent<Image>().color = RelicManager.Instance.rarityColor[(int)relic.rarity]; // Set the color based on rarity
-
+                relicPrefab.GetComponent<Image>().sprite = relic.image; // Set the image of the relic
+                relicPrefab.GetComponent<Image>().color = RelicManager.Instance.rarityColor[(int)relic.rarity]; // Set the color based on rarity
+            }
         }
     }
 }
