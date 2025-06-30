@@ -1,4 +1,4 @@
-﻿using Unity.VisualScripting;
+﻿﻿using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -131,7 +131,17 @@ public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
             if (placedSegment)
             {
-                Destroy(eventData.pointerDrag); // Success: remove the card
+                // Remove card from hand data
+                var deckUI = FindAnyObjectByType<DeckUI>();
+                if (deckUI != null)
+                {
+                    deckUI.RemoveCardFromHand(cardUI.card);
+                }
+
+                Destroy(eventData.pointerDrag); // Success: destroy the card GameObject
+
+                // Update hand layout
+                FindAnyObjectByType<HandLayout>()?.RepositionCards();
             }
             else
             {

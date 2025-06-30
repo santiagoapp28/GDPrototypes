@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,15 +11,25 @@ public class UIManager : MonoBehaviour
     public GameObject relicPanel;
     private WaveManager _waveManager;
 
-    public TextMeshProUGUI healthText;
-    public Image healthBarImage;
-
     private void Start()
     {
         shopButton.onClick.AddListener(OnShop);
         restartButton.onClick.AddListener(OnRestart);
-        UpdateCoins(GameManager.Instance.coins);
+
+        // Subscribe to events
         GameManager.Instance.OnCoinsUpdated += UpdateCoins;
+
+        // Initial UI update
+        UpdateCoins(GameManager.Instance.coins);
+    }
+
+    private void OnDestroy()
+    {
+        // Unsubscribe to prevent errors when the object is destroyed
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.OnCoinsUpdated -= UpdateCoins;
+        }
     }
 
     void OnShop()
@@ -41,12 +50,6 @@ public class UIManager : MonoBehaviour
     public void UpdateCoins(int coins)
     {
         coinsText.text = coins.ToString();
-    }
-
-    public void UpdateHealth(int health, int maxHealth)
-    {
-        healthText.text = health + " / " + maxHealth;
-        healthBarImage.fillAmount = (float)health / maxHealth;
     }
 
     public void ShowShopButton()

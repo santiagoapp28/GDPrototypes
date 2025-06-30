@@ -69,10 +69,13 @@ public class StageManager : MonoBehaviour
 
     public void GoToShop()
     {
-        AudioManager.Instance.PlaySFX(Sounds.UIClick);
-        AudioManager.Instance.PlayMusic(Music.ShopMusic);
-        SceneManager.LoadScene(shopSceneID);
-        GameManager.Instance.ChangeTimeScale(1f); //reset timescale
+        // Temporarily bypass the shop and go to the next level.
+        StartNewStage();
+        // Original code to restore shop functionality:
+        // AudioManager.Instance.PlaySFX(Sounds.UIClick);
+        // AudioManager.Instance.PlayMusic(Music.ShopMusic);
+        // SceneManager.LoadScene(shopSceneID);
+        // GameManager.Instance.ChangeTimeScale(1f); //reset timescale
     }
 
     public void GoToMenu()

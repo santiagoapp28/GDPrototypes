@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
-    public float health = 100f;
+    [Header("Data")]
+    public EnemyData enemyData;
+
+    private float health;
     private float _maxHealth;
-    public float speed = 5f;
+    private float speed;
+    private int damage;
     public float slowDownEffect = 0f; //1f = 100% slow, 0f = no slow
-    public int coins;
-    public int damage = 10;
     public float detectionDistance = 3f;
     public float sideRayAngle = 30f; // degrees for side rays
     public float dodgeStrength = 0.5f; // 0 = full forward, 1 = strong sideways
@@ -26,9 +28,21 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void Start()
     {
+        if (enemyData == null)
+        {
+            Debug.LogError("EnemyData not assigned on " + gameObject.name, this);
+            Destroy(gameObject);
+            return;
+        }
+
+        // Initialize from EnemyData
+        _maxHealth = enemyData.health;
+        health = _maxHealth;
+        speed = enemyData.speed;
+        damage = enemyData.damage;
+
         initialDirection = transform.forward.normalized; // Save the spawn direction
         waveManager = FindAnyObjectByType<WaveManager>();
-        _maxHealth = health;
         _enemyUI = GetComponent<EnemyUI>();
         _enemyFeedback = GetComponent<EnemyFeedback>();
         _enemyUI.UpdateHealthBar(health / _maxHealth);
@@ -79,10 +93,11 @@ public class Enemy : MonoBehaviour, IDamageable
         }
     }
 
-    void Die()
+    public void Die()
     {
         AudioManager.Instance.PlaySFX(Sounds.EnemyDeath);
-        GameManager.Instance.UpdateCoins(coins);
+        GameManager.Instance.UpdateCoins(enemyData.coinsOnDeath);
+        GameManager.Instance.UpdateEnergy(enemyData.energyOnDeath);
         OnEnemyDied?.Invoke(this);
         Destroy(gameObject);
     }

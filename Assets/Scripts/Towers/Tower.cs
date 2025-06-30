@@ -96,7 +96,7 @@ public class Tower : MonoBehaviour
 
             Vector3 targetPos = enemy.transform.position;
             Vector3 enemyForward = enemy.transform.forward;
-            float enemySpeed = enemy.speed * (1f - enemy.slowDownEffect);
+            float enemySpeed = enemy.enemyData.speed * (1f - enemy.slowDownEffect);
 
             // Calculate predicted point
             Vector3 predictedPos = FirstOrderIntercept(

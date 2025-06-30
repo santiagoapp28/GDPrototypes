@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d11ac14a9b112fc4b941b787e9cbabf8, type: 3}
+  m_Name: 3_FlyingEnemy
+  m_EditorClassIdentifier: 
+  enemyName: Balloon Ghost
+  prefab: {fileID: 8640448628472377865, guid: b5ca935e768aeaa4b8a0545c7b50db2d, type: 3}
+  health: 100
+  armor: 25
+  speed: 0.75
+  damage: 10
+  coinsOnDeath: 30
+  energyOnDeath: 15
+  acidResistant: -50
+  fireResistant: 0
+  iceResistant: -50

@@ -769,11 +769,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffabdf4e7daf9344b9b35a7ae7969d49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 600
-  speed: 0.6
+  enemyData: {fileID: 11400000, guid: 3648f31f28b8a9742a766c750f385adb, type: 2}
   slowDownEffect: 0
-  coins: 500
-  damage: 10
   detectionDistance: 4
   sideRayAngle: 30
   dodgeStrength: 0.5

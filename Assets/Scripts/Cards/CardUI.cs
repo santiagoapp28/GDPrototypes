@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class CardUI : MonoBehaviour
 {
+    public Card card { get; private set; }
     public Image icon;
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI descriptionText;
@@ -13,6 +14,7 @@ public class CardUI : MonoBehaviour
 
     public void Initialize(Card card)
     {
+        this.card = card;
         icon.sprite = card.icon;
         nameText.text = card.cardName;
         descriptionText.text = card.description;

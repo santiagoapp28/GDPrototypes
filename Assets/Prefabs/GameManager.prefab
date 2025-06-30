@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6749214845226944690}
   - component: {fileID: 7497600681395142908}
   - component: {fileID: 1105181494656545782}
+  - component: {fileID: 2615855379003613040}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -51,7 +52,10 @@ MonoBehaviour:
   currentStageIndex: -1
   health: 100
   maxHealth: 100
+  maxHandCount: 0
+  energy: 0
   timeScale: 1
+  energyCosts: 
 --- !u!114 &1105181494656545782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,3 +85,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fd11b1c0cd700d64fa03adc5ab1d7dfd, type: 2}
   gameplaySceneID: 2
   shopSceneID: 1
+--- !u!114 &2615855379003613040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5001233405733517250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90570027e99a383408a0f01742f0d54f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
